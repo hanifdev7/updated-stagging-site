@@ -151,3 +151,19 @@ html {
 .hide-scrollbar::-webkit-scrollbar {
   display: none;
 }
+
+/* Hide Google reCAPTCHA badge */
+.grecaptcha-badge {
+  visibility: hidden !important;
+  opacity: 0 !important;
+  pointer-events: none !important;
+  display: none !important;
+}
+
+iframe[src*="recaptcha"] {
+  display: none !important;
+}
+
+div[style*="recaptcha"] {
+  display: none !important;
+}

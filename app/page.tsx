@@ -154,7 +154,7 @@ export default function Home() {
 
       <main>
         {/* Hero Section */}
-        <section ref={heroRef} className="relative min-h-screen flex items-center pt-16 md:pt-20">
+        <section ref={heroRef} className="relative min-h-screen flex items-center pt-12 md:pt-16">
           <motion.div style={{ opacity, scale, y }} className="container mx-auto px-4 py-4 md:py-8">
             <div className="max-w-6xl mx-auto overflow-hidden rounded-3xl bg-gradient-to-r from-black to-gray-700">
               <div className="grid md:grid-cols-2 items-center">
@@ -214,7 +214,7 @@ export default function Home() {
 
         {/* What We Do Section */}
         <motion.section
-          className="py-12 md:py-24 bg-black text-white"
+          className="py-8 md:py-16 bg-black text-white"
           initial={{ opacity: 0, y: 50 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, ease: "easeOut" }}
@@ -245,7 +245,7 @@ export default function Home() {
         {/* Detailed Services Section */}
         <motion.section
           ref={servicesRef}
-          className="py-12 md:py-24 bg-white"
+          className="py-8 md:py-16 bg-white"
           initial={{ opacity: 0, y: 50 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, ease: "easeOut" }}
@@ -275,7 +275,7 @@ export default function Home() {
 
         {/* CTA Section */}
         <motion.section
-          className="py-12 md:py-24"
+          className="py-8 md:py-16"
           initial={{ opacity: 0, y: 50 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, ease: "easeOut" }}
