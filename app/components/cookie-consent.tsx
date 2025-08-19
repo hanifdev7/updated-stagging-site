@@ -79,24 +79,21 @@ export function CookieConsent() {
         initial={{ opacity: 0, y: 100 }}
         animate={{ opacity: 1, y: 0 }}
         exit={{ opacity: 0, y: 100 }}
-        className="fixed top-4 left-4 right-4 z-[9999] max-w-sm mx-auto sm:max-w-md"
+        className="fixed top-4 left-4 right-4 z-[9999] max-w-md mx-auto"
         data-cookie-banner="true"
       >
-        <div className="bg-white border border-gray-200 rounded-xl shadow-2xl p-4 sm:p-6">
-          <div className="flex items-start justify-between mb-3 sm:mb-4">
-            <div className="flex items-center min-w-0">
-              <Cookie className="h-5 w-5 sm:h-6 sm:w-6 text-amber-600 mr-2 flex-shrink-0" />
-              <h3 className="font-semibold text-gray-900 text-sm sm:text-base truncate">Cookie Preferences</h3>
+        <div className="bg-white border border-gray-200 rounded-xl shadow-2xl p-6">
+          <div className="flex items-start justify-between mb-4">
+            <div className="flex items-center">
+              <Cookie className="h-6 w-6 text-amber-600 mr-2" />
+              <h3 className="font-semibold text-gray-900">Cookie Preferences</h3>
             </div>
-            <button
-              onClick={() => setIsVisible(false)}
-              className="text-gray-400 hover:text-gray-600 transition-colors flex-shrink-0 ml-2"
-            >
+            <button onClick={() => setIsVisible(false)} className="text-gray-400 hover:text-gray-600 transition-colors">
               <X className="h-4 w-4" />
             </button>
           </div>
 
-          <p className="text-xs sm:text-sm text-gray-600 mb-3 sm:mb-4 leading-relaxed">
+          <p className="text-sm text-gray-600 mb-4">
             We use cookies to enhance your browsing experience, provide personalized content, and analyze our traffic.
             Choose your preferences below.
           </p>
@@ -107,28 +104,26 @@ export function CookieConsent() {
                 initial={{ opacity: 0, height: 0 }}
                 animate={{ opacity: 1, height: "auto" }}
                 exit={{ opacity: 0, height: 0 }}
-                className="mb-3 sm:mb-4 p-3 bg-gray-50 rounded-lg overflow-hidden"
+                className="mb-4 p-3 bg-gray-50 rounded-lg"
               >
                 <div className="space-y-3">
                   <div className="flex items-center justify-between">
-                    <div className="flex items-center min-w-0">
-                      <Shield className="h-4 w-4 text-green-600 mr-2 flex-shrink-0" />
-                      <span className="text-xs sm:text-sm font-medium truncate">Essential Cookies</span>
+                    <div className="flex items-center">
+                      <Shield className="h-4 w-4 text-green-600 mr-2" />
+                      <span className="text-sm font-medium">Essential Cookies</span>
                     </div>
-                    <span className="text-xs text-gray-500 flex-shrink-0 ml-2">Always Active</span>
+                    <span className="text-xs text-gray-500">Always Active</span>
                   </div>
-                  <p className="text-xs text-gray-600 ml-6 leading-relaxed">
-                    Required for basic website functionality and security.
-                  </p>
+                  <p className="text-xs text-gray-600 ml-6">Required for basic website functionality and security.</p>
 
                   <div className="flex items-center justify-between">
-                    <div className="flex items-center min-w-0">
-                      <Settings className="h-4 w-4 text-blue-600 mr-2 flex-shrink-0" />
-                      <span className="text-xs sm:text-sm font-medium truncate">Analytics Cookies</span>
+                    <div className="flex items-center">
+                      <Settings className="h-4 w-4 text-blue-600 mr-2" />
+                      <span className="text-sm font-medium">Analytics Cookies</span>
                     </div>
-                    <span className="text-xs text-gray-500 flex-shrink-0 ml-2">Optional</span>
+                    <span className="text-xs text-gray-500">Optional</span>
                   </div>
-                  <p className="text-xs text-gray-600 ml-6 leading-relaxed">
+                  <p className="text-xs text-gray-600 ml-6">
                     Help us understand how visitors interact with our website.
                   </p>
                 </div>
@@ -136,21 +131,19 @@ export function CookieConsent() {
             )}
           </AnimatePresence>
 
-          <div className="flex flex-col gap-2">
-            <div className="flex flex-col sm:flex-row gap-2">
-              <Button onClick={handleReject} variant="outline" size="sm" className="flex-1 text-xs bg-transparent">
-                Reject All
-              </Button>
-              <Button onClick={handleCustomize} variant="outline" size="sm" className="flex-1 text-xs bg-transparent">
-                {showDetails ? "Hide Details" : "Customize"}
-              </Button>
-              <Button onClick={handleAccept} size="sm" className="flex-1 bg-black hover:bg-gray-800 text-white text-xs">
-                Accept All
-              </Button>
-            </div>
+          <div className="flex flex-col sm:flex-row gap-2">
+            <Button onClick={handleReject} variant="outline" size="sm" className="flex-1 text-xs">
+              Reject All
+            </Button>
+            <Button onClick={handleCustomize} variant="outline" size="sm" className="flex-1 text-xs">
+              {showDetails ? "Hide Details" : "Customize"}
+            </Button>
+            <Button onClick={handleAccept} size="sm" className="flex-1 bg-black hover:bg-gray-800 text-white text-xs">
+              Accept All
+            </Button>
           </div>
 
-          <p className="text-xs text-gray-500 mt-3 text-center leading-relaxed">
+          <p className="text-xs text-gray-500 mt-3 text-center">
             By continuing to use our site, you agree to our{" "}
             <a href="/privacy-policy" className="text-black hover:underline">
               Privacy Policy

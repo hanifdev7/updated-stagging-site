@@ -3,7 +3,7 @@
 import { useState } from "react"
 import Link from "next/link"
 import { motion, AnimatePresence } from "framer-motion"
-import { X, ChevronDown, ChevronRight } from "lucide-react"
+import { X, ChevronDown } from "lucide-react"
 import { Logo } from "./logo"
 
 interface MobileMenuProps {
@@ -12,35 +12,8 @@ interface MobileMenuProps {
 }
 
 export function MobileMenu({ isOpen, onClose }: MobileMenuProps) {
-  const [expandedSection, setExpandedSection] = useState<string | null>(null)
-
-  const toggleSection = (section: string) => {
-    setExpandedSection(expandedSection === section ? null : section)
-  }
-
-  const menuVariants = {
-    closed: {
-      x: "100%",
-      transition: {
-        type: "spring",
-        stiffness: 400,
-        damping: 40,
-      },
-    },
-    open: {
-      x: 0,
-      transition: {
-        type: "spring",
-        stiffness: 400,
-        damping: 40,
-      },
-    },
-  }
-
-  const itemVariants = {
-    closed: { opacity: 0, x: 20 },
-    open: { opacity: 1, x: 0 },
-  }
+  const [isServicesOpen, setIsServicesOpen] = useState(false)
+  const [isSupportOpen, setIsSupportOpen] = useState(false)
 
   return (
     <AnimatePresence>
@@ -48,20 +21,20 @@ export function MobileMenu({ isOpen, onClose }: MobileMenuProps) {
         <>
           {/* Backdrop */}
           <motion.div
-            className="fixed inset-0 bg-black/50 z-50"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
+            className="fixed inset-0 bg-black/50 z-50"
             onClick={onClose}
           />
 
           {/* Menu */}
           <motion.div
-            className="fixed top-0 right-0 h-full w-full max-w-sm bg-[#f0efe6] z-50 shadow-2xl"
-            variants={menuVariants}
-            initial="closed"
-            animate="open"
-            exit="closed"
+            initial={{ x: "100%" }}
+            animate={{ x: 0 }}
+            exit={{ x: "100%" }}
+            transition={{ type: "spring", damping: 25, stiffness: 300 }}
+            className="fixed top-0 right-0 h-full w-full max-w-sm bg-[#f0efe6] z-50 overflow-y-auto"
           >
             <div className="flex flex-col h-full">
               {/* Header */}
@@ -76,177 +49,149 @@ export function MobileMenu({ isOpen, onClose }: MobileMenuProps) {
                 </button>
               </div>
 
-              {/* Menu Items */}
-              <div className="flex-1 overflow-y-auto py-4">
-                <motion.div
-                  className="space-y-2 px-4"
-                  initial="closed"
-                  animate="open"
-                  variants={{
-                    open: {
-                      transition: { staggerChildren: 0.1, delayChildren: 0.2 },
-                    },
-                  }}
-                >
-                  {/* Services */}
-                  <motion.div variants={itemVariants}>
+              {/* Navigation */}
+              <nav className="flex-1 p-4">
+                <div className="space-y-2">
+                  <Link
+                    href="/"
+                    className="block px-4 py-3 text-base font-medium rounded-lg hover:bg-black hover:text-white transition-colors"
+                    onClick={onClose}
+                  >
+                    Home
+                  </Link>
+
+                  {/* Services Dropdown */}
+                  <div>
                     <button
-                      onClick={() => toggleSection("services")}
-                      className="flex items-center justify-between w-full py-3 px-4 text-left font-medium rounded-lg hover:bg-black/5 transition-colors"
+                      onClick={() => setIsServicesOpen(!isServicesOpen)}
+                      className="flex items-center justify-between w-full px-4 py-3 text-base font-medium rounded-lg hover:bg-black hover:text-white transition-colors"
                     >
                       <span>Services</span>
-                      <ChevronDown
-                        className={`h-4 w-4 transition-transform ${expandedSection === "services" ? "rotate-180" : ""}`}
-                      />
+                      <ChevronDown className={`h-4 w-4 transition-transform ${isServicesOpen ? "rotate-180" : ""}`} />
                     </button>
                     <AnimatePresence>
-                      {expandedSection === "services" && (
+                      {isServicesOpen && (
                         <motion.div
                           initial={{ height: 0, opacity: 0 }}
                           animate={{ height: "auto", opacity: 1 }}
                           exit={{ height: 0, opacity: 0 }}
-                          transition={{ duration: 0.3 }}
+                          transition={{ duration: 0.2 }}
                           className="overflow-hidden"
                         >
-                          <div className="pl-4 py-2 space-y-2">
+                          <div className="ml-4 mt-2 space-y-1">
                             <Link
                               href="/services/web-design"
+                              className="block px-4 py-2 text-sm text-gray-600 rounded-lg hover:bg-gray-100 transition-colors"
                               onClick={onClose}
-                              className="flex items-center py-2 px-4 text-sm text-gray-600 hover:text-black hover:bg-black/5 rounded-lg transition-colors"
                             >
-                              <ChevronRight className="h-3 w-3 mr-2" />
                               Web Design
                             </Link>
                             <Link
                               href="/services/mobile-app"
+                              className="block px-4 py-2 text-sm text-gray-600 rounded-lg hover:bg-gray-100 transition-colors"
                               onClick={onClose}
-                              className="flex items-center py-2 px-4 text-sm text-gray-600 hover:text-black hover:bg-black/5 rounded-lg transition-colors"
                             >
-                              <ChevronRight className="h-3 w-3 mr-2" />
                               App Development
                             </Link>
                             <Link
                               href="/services/ecommerce"
+                              className="block px-4 py-2 text-sm text-gray-600 rounded-lg hover:bg-gray-100 transition-colors"
                               onClick={onClose}
-                              className="flex items-center py-2 px-4 text-sm text-gray-600 hover:text-black hover:bg-black/5 rounded-lg transition-colors"
                             >
-                              <ChevronRight className="h-3 w-3 mr-2" />
                               E-commerce
                             </Link>
                             <Link
                               href="/services/web-app"
+                              className="block px-4 py-2 text-sm text-gray-600 rounded-lg hover:bg-gray-100 transition-colors"
                               onClick={onClose}
-                              className="flex items-center py-2 px-4 text-sm text-gray-600 hover:text-black hover:bg-black/5 rounded-lg transition-colors"
                             >
-                              <ChevronRight className="h-3 w-3 mr-2" />
                               Web Applications
                             </Link>
                           </div>
                         </motion.div>
                       )}
                     </AnimatePresence>
-                  </motion.div>
+                  </div>
 
-                  {/* Our Story */}
-                  <motion.div variants={itemVariants}>
-                    <Link
-                      href="/our-story"
-                      onClick={onClose}
-                      className="block py-3 px-4 font-medium rounded-lg hover:bg-black/5 transition-colors"
-                    >
-                      Our Story
-                    </Link>
-                  </motion.div>
+                  <Link
+                    href="/our-story"
+                    className="block px-4 py-3 text-base font-medium rounded-lg hover:bg-black hover:text-white transition-colors"
+                    onClick={onClose}
+                  >
+                    Our Story
+                  </Link>
 
-                  {/* Support */}
-                  <motion.div variants={itemVariants}>
+                  {/* Support Dropdown */}
+                  <div>
                     <button
-                      onClick={() => toggleSection("support")}
-                      className="flex items-center justify-between w-full py-3 px-4 text-left font-medium rounded-lg hover:bg-black/5 transition-colors"
+                      onClick={() => setIsSupportOpen(!isSupportOpen)}
+                      className="flex items-center justify-between w-full px-4 py-3 text-base font-medium rounded-lg hover:bg-black hover:text-white transition-colors"
                     >
                       <span>Support</span>
-                      <ChevronDown
-                        className={`h-4 w-4 transition-transform ${expandedSection === "support" ? "rotate-180" : ""}`}
-                      />
+                      <ChevronDown className={`h-4 w-4 transition-transform ${isSupportOpen ? "rotate-180" : ""}`} />
                     </button>
                     <AnimatePresence>
-                      {expandedSection === "support" && (
+                      {isSupportOpen && (
                         <motion.div
                           initial={{ height: 0, opacity: 0 }}
                           animate={{ height: "auto", opacity: 1 }}
                           exit={{ height: 0, opacity: 0 }}
-                          transition={{ duration: 0.3 }}
+                          transition={{ duration: 0.2 }}
                           className="overflow-hidden"
                         >
-                          <div className="pl-4 py-2 space-y-2">
+                          <div className="ml-4 mt-2 space-y-1">
                             <Link
                               href="/help-center"
+                              className="block px-4 py-2 text-sm text-gray-600 rounded-lg hover:bg-gray-100 transition-colors"
                               onClick={onClose}
-                              className="flex items-center py-2 px-4 text-sm text-gray-600 hover:text-black hover:bg-black/5 rounded-lg transition-colors"
                             >
-                              <ChevronRight className="h-3 w-3 mr-2" />
                               Help Center
                             </Link>
                             <Link
                               href="/faq"
+                              className="block px-4 py-2 text-sm text-gray-600 rounded-lg hover:bg-gray-100 transition-colors"
                               onClick={onClose}
-                              className="flex items-center py-2 px-4 text-sm text-gray-600 hover:text-black hover:bg-black/5 rounded-lg transition-colors"
                             >
-                              <ChevronRight className="h-3 w-3 mr-2" />
                               FAQ
                             </Link>
                           </div>
                         </motion.div>
                       )}
                     </AnimatePresence>
-                  </motion.div>
+                  </div>
 
-                  {/* Contact Us */}
-                  <motion.div variants={itemVariants}>
-                    <Link
-                      href="/contact"
-                      onClick={onClose}
-                      className="block py-3 px-4 font-medium rounded-lg hover:bg-black/5 transition-colors"
-                    >
-                      Contact Us
-                    </Link>
-                  </motion.div>
+                  <Link
+                    href="/contact"
+                    className="block px-4 py-3 text-base font-medium rounded-lg hover:bg-black hover:text-white transition-colors"
+                    onClick={onClose}
+                  >
+                    Contact Us
+                  </Link>
 
-                  {/* Student Program */}
-                  <motion.div variants={itemVariants}>
-                    <Link
-                      href="/student-program"
-                      onClick={onClose}
-                      className="block py-3 px-4 font-medium rounded-lg hover:bg-black/5 transition-colors"
-                    >
-                      Student Program
-                    </Link>
-                  </motion.div>
+                  <Link
+                    href="/student-program"
+                    className="block px-4 py-3 text-base font-medium rounded-lg hover:bg-black hover:text-white transition-colors"
+                    onClick={onClose}
+                  >
+                    Student Program
+                  </Link>
 
-                  {/* Careers */}
-                  <motion.div variants={itemVariants}>
-                    <Link
-                      href="/careers"
-                      onClick={onClose}
-                      className="block py-3 px-4 font-medium rounded-lg hover:bg-black/5 transition-colors"
-                    >
-                      Careers
-                    </Link>
-                  </motion.div>
-                </motion.div>
-              </div>
+                  <Link
+                    href="/careers"
+                    className="block px-4 py-3 text-base font-medium rounded-lg hover:bg-black hover:text-white transition-colors"
+                    onClick={onClose}
+                  >
+                    Careers
+                  </Link>
+                </div>
+              </nav>
 
               {/* Footer */}
               <div className="p-4 border-t border-gray-200">
-                <motion.div
-                  variants={itemVariants}
-                  initial="closed"
-                  animate="open"
-                  transition={{ delay: 0.5 }}
-                  className="text-center text-sm text-gray-500"
-                >
-                  © 2025 CtrlPlusTech.com
-                </motion.div>
+                <div className="text-center">
+                  <p className="text-xs text-gray-500">© 2025 CtrlPlusTech.com</p>
+                  <p className="text-xs text-gray-500 mt-1">All rights reserved</p>
+                </div>
               </div>
             </div>
           </motion.div>

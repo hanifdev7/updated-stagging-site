@@ -1,7 +1,7 @@
 "use client"
 
 import { motion } from "framer-motion"
-import { MapPin, Mail, Clock } from "lucide-react" // Removed Phone icon
+import { Mail, Clock } from "lucide-react" // Removed MapPin icon import
 
 export function ContactInfo() {
   const containerVariants = {
@@ -26,22 +26,6 @@ export function ContactInfo() {
 
   return (
     <motion.div className="space-y-8" variants={containerVariants} initial="hidden" animate="visible">
-      <motion.div variants={itemVariants} className="flex items-start space-x-4">
-        <div className="bg-black text-white p-3 rounded-full">
-          <MapPin className="h-6 w-6" />
-        </div>
-        <div>
-          <h3 className="text-lg font-semibold mb-1">Our Location</h3>
-          <p className="text-gray-600">
-            123 Tech Avenue, Suite 400
-            <br />
-            San Francisco, CA 94107
-          </p>
-        </div>
-      </motion.div>
-
-      {/* Phone Number section removed */}
-
       <motion.div variants={itemVariants} className="flex items-start space-x-4">
         <div className="bg-black text-white p-3 rounded-full">
           <Mail className="h-6 w-6" />
