@@ -66,24 +66,24 @@ export function MainPageChatBot() {
             transition={{ duration: 0.3, type: "spring" }}
             className={`fixed z-50 ${
               isMaximized
-                ? "inset-4 md:inset-8 lg:inset-16"
-                : "top-20 right-2 left-2 h-80 md:top-20 md:right-6 md:left-auto md:w-80 md:h-96"
+                ? "inset-2 sm:inset-4 md:inset-8 lg:inset-16"
+                : "bottom-20 right-2 left-2 h-80 sm:bottom-20 sm:right-4 sm:left-auto sm:w-80 sm:h-96 md:right-6 md:w-96 md:h-[500px]"
             }`}
-            style={{ transformOrigin: "top right" }}
+            style={{ transformOrigin: "bottom right" }}
           >
             <div className="bg-white rounded-xl shadow-2xl overflow-hidden h-full flex flex-col">
               {/* Header */}
               <div className="bg-black text-white p-3 md:p-4 flex items-center justify-between flex-shrink-0">
-                <div className="flex items-center">
-                  <div className="bg-white/20 p-1.5 md:p-2 rounded-full mr-2 md:mr-3">
+                <div className="flex items-center min-w-0">
+                  <div className="bg-white/20 p-1.5 md:p-2 rounded-full mr-2 md:mr-3 flex-shrink-0">
                     <MessageCircle className="h-3 w-3 md:h-4 md:w-4" />
                   </div>
-                  <div>
-                    <h3 className="font-semibold text-xs md:text-sm">AI Assistant</h3>
-                    <p className="text-xs text-gray-300">Online • Ready to help</p>
+                  <div className="min-w-0">
+                    <h3 className="font-semibold text-xs md:text-sm truncate">AI Assistant</h3>
+                    <p className="text-xs text-gray-300 truncate">Online • Ready to help</p>
                   </div>
                 </div>
-                <div className="flex items-center space-x-1 md:space-x-2">
+                <div className="flex items-center space-x-1 md:space-x-2 flex-shrink-0">
                   <button
                     onClick={toggleMaximize}
                     className="p-1 hover:bg-white/20 rounded transition-colors"

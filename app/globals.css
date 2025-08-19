@@ -10,6 +10,13 @@ body {
   .text-balance {
     text-wrap: balance;
   }
+
+  .line-clamp-2 {
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+  }
 }
 
 @layer base {
@@ -147,4 +154,72 @@ iframe[src*="recaptcha"] {
 
 div[style*="recaptcha"] {
   display: none !important;
+}
+
+/* Mobile-specific improvements */
+@media (max-width: 768px) {
+  /* Ensure proper touch targets */
+  button,
+  a,
+  input,
+  select,
+  textarea {
+    min-height: 44px;
+    min-width: 44px;
+  }
+
+  /* Improve text readability on mobile */
+  body {
+    -webkit-text-size-adjust: 100%;
+    text-size-adjust: 100%;
+  }
+
+  /* Prevent horizontal scrolling */
+  body,
+  html {
+    overflow-x: hidden;
+  }
+
+  /* Improve form inputs on mobile */
+  input,
+  textarea,
+  select {
+    font-size: 16px; /* Prevents zoom on iOS */
+  }
+
+  /* Better spacing for mobile */
+  .container {
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+}
+
+/* Landscape mobile improvements */
+@media (max-width: 768px) and (orientation: landscape) {
+  /* Reduce header height in landscape */
+  header {
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+  }
+
+  /* Adjust hero section for landscape */
+  .hero-section {
+    min-height: 70vh;
+  }
+}
+
+/* Very small screens */
+@media (max-width: 320px) {
+  /* Ensure content fits on very small screens */
+  .text-6xl {
+    font-size: 2.5rem;
+  }
+
+  .text-5xl {
+    font-size: 2rem;
+  }
+
+  .text-4xl {
+    font-size: 1.75rem;
+  }
 }

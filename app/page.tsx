@@ -58,7 +58,7 @@ export default function Home() {
       <CookieConsent />
 
       <header className="fixed top-0 left-0 right-0 z-40 bg-[#f0efe6]/80 backdrop-blur-sm">
-        <div className="container mx-auto px-4 py-4 flex items-center justify-between">
+        <div className="container mx-auto px-4 py-3 md:py-4 flex items-center justify-between">
           <Logo variant="header" size="md" showSlogan={true} />
 
           <nav className="hidden md:flex items-center space-x-4">
@@ -154,23 +154,24 @@ export default function Home() {
 
       <main>
         {/* Hero Section */}
-        <section ref={heroRef} className="relative min-h-screen flex items-center pt-12 md:pt-16">
-          <motion.div style={{ opacity, scale, y }} className="container mx-auto px-4 py-4 md:py-8">
-            <div className="max-w-6xl mx-auto overflow-hidden rounded-3xl bg-gradient-to-r from-black to-gray-700">
-              <div className="grid md:grid-cols-2 items-center">
-                <div className="relative h-[250px] md:h-[500px]">
+        <section ref={heroRef} className="relative min-h-screen flex items-center pt-16 md:pt-20">
+          <motion.div style={{ opacity, scale, y }} className="container mx-auto px-4 py-6 md:py-8">
+            <div className="max-w-6xl mx-auto overflow-hidden rounded-2xl md:rounded-3xl bg-gradient-to-r from-black to-gray-700">
+              <div className="grid md:grid-cols-2 items-center min-h-[400px] md:min-h-[500px]">
+                <div className="relative h-[200px] md:h-[500px] order-2 md:order-1">
                   <Image
                     src="/images/hero-designers.jpeg"
                     alt="Designers collaborating on wireframes"
                     fill
                     className="object-cover"
                     priority
+                    sizes="(max-width: 768px) 100vw, 50vw"
                   />
                   <div className="absolute inset-0 bg-gradient-to-r from-black/70 to-transparent mix-blend-multiply"></div>
                 </div>
-                <div className="p-4 md:p-12 text-white">
+                <div className="p-6 md:p-12 text-white order-1 md:order-2">
                   <motion.h1
-                    className="text-2xl md:text-6xl font-bold leading-tight mb-4 md:mb-6"
+                    className="text-2xl sm:text-3xl md:text-5xl lg:text-6xl font-bold leading-tight mb-4 md:mb-6"
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.8, delay: 0.2 }}
@@ -178,7 +179,7 @@ export default function Home() {
                     Creating digital magic, one click at a time.
                   </motion.h1>
                   <motion.p
-                    className="text-sm md:text-lg mb-6 md:mb-8 text-gray-200"
+                    className="text-sm md:text-lg mb-6 md:mb-8 text-gray-200 leading-relaxed"
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.8, delay: 0.4 }}
@@ -192,15 +193,15 @@ export default function Home() {
                     transition={{ duration: 0.8, delay: 0.6 }}
                   >
                     <AnimatedButton
-                      className="bg-[#333] hover:bg-[#444] text-white px-4 md:px-8 py-2 md:py-3 text-sm md:text-base"
+                      className="bg-[#333] hover:bg-[#444] text-white px-6 md:px-8 py-3 md:py-3 text-sm md:text-base w-full sm:w-auto"
                       onClick={scrollToServices}
                     >
                       Explore
                     </AnimatedButton>
-                    <Link href="/student-program">
+                    <Link href="/student-program" className="w-full sm:w-auto">
                       <AnimatedButton
                         variant="outline"
-                        className="border-white text-white hover:bg-white/10 hover:border-white hover:text-white px-4 md:px-8 py-2 md:py-3 text-sm md:text-base w-full sm:w-auto"
+                        className="border-white text-white hover:bg-white/10 hover:border-white hover:text-white px-6 md:px-8 py-3 md:py-3 text-sm md:text-base w-full"
                       >
                         Join us
                       </AnimatedButton>
@@ -214,7 +215,7 @@ export default function Home() {
 
         {/* What We Do Section */}
         <motion.section
-          className="py-8 md:py-16 bg-black text-white"
+          className="py-12 md:py-16 bg-black text-white"
           initial={{ opacity: 0, y: 50 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, ease: "easeOut" }}
@@ -222,7 +223,7 @@ export default function Home() {
         >
           <div className="container mx-auto px-4">
             <motion.div
-              className="mb-8 md:mb-16"
+              className="mb-8 md:mb-16 text-center md:text-left"
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.2 }}
@@ -231,8 +232,8 @@ export default function Home() {
               <div className="inline-block px-3 py-1 mb-4 text-xs font-medium bg-white/10 backdrop-blur-sm rounded-full">
                 Our Expertise
               </div>
-              <h2 className="text-2xl md:text-6xl font-bold">What We Do</h2>
-              <p className="mt-4 text-sm md:text-lg text-gray-300 max-w-3xl">
+              <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold mb-4">What We Do</h2>
+              <p className="mt-4 text-base md:text-lg text-gray-300 max-w-3xl mx-auto md:mx-0 leading-relaxed">
                 We specialize in creating digital experiences that transform businesses and delight users. Our services
                 are tailored to meet your unique needs and goals.
               </p>
@@ -245,7 +246,7 @@ export default function Home() {
         {/* Detailed Services Section */}
         <motion.section
           ref={servicesRef}
-          className="py-8 md:py-16 bg-white"
+          className="py-12 md:py-16 bg-white"
           initial={{ opacity: 0, y: 50 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, ease: "easeOut" }}
@@ -262,8 +263,8 @@ export default function Home() {
               <div className="inline-block px-3 py-1 mb-4 text-xs font-medium bg-gray-100 rounded-full">
                 Our Services
               </div>
-              <h2 className="text-2xl md:text-5xl font-bold">How We Can Help You</h2>
-              <p className="mt-4 text-sm md:text-lg text-gray-600 max-w-3xl mx-auto">
+              <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-4">How We Can Help You</h2>
+              <p className="mt-4 text-base md:text-lg text-gray-600 max-w-3xl mx-auto leading-relaxed">
                 Explore our comprehensive range of services designed to help your business thrive in the digital
                 landscape.
               </p>
@@ -275,7 +276,7 @@ export default function Home() {
 
         {/* CTA Section */}
         <motion.section
-          className="py-8 md:py-16"
+          className="py-12 md:py-16"
           initial={{ opacity: 0, y: 50 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, ease: "easeOut" }}
@@ -284,7 +285,7 @@ export default function Home() {
           <div className="container mx-auto px-4">
             <div className="max-w-3xl mx-auto text-center">
               <motion.h2
-                className="text-xl md:text-5xl font-bold mb-4 md:mb-6"
+                className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold mb-4 md:mb-6 leading-tight"
                 initial={{ opacity: 0, y: 30 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.8, delay: 0.2 }}
@@ -293,7 +294,7 @@ export default function Home() {
                 Crafting digital experiences that matter
               </motion.h2>
               <motion.p
-                className="text-sm md:text-lg mb-6 md:mb-8"
+                className="text-base md:text-lg mb-6 md:mb-8 leading-relaxed"
                 initial={{ opacity: 0, y: 30 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.8, delay: 0.4 }}
@@ -308,7 +309,7 @@ export default function Home() {
                 viewport={{ once: true, amount: 0.3 }}
               >
                 <Link href="/our-story">
-                  <AnimatedButton className="bg-black hover:bg-gray-800 text-white px-4 md:px-8 py-2 md:py-3 text-sm md:text-base">
+                  <AnimatedButton className="bg-black hover:bg-gray-800 text-white px-6 md:px-8 py-3 text-sm md:text-base">
                     Learn more about us
                   </AnimatedButton>
                 </Link>
@@ -326,8 +327,8 @@ export default function Home() {
         viewport={{ once: true, amount: 0.2 }}
       >
         <div className="container mx-auto px-4">
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-6 md:gap-8 text-center">
-            <div className="flex flex-col items-center">
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-8 text-center md:text-left">
+            <div className="flex flex-col items-center md:items-start col-span-1 sm:col-span-2 md:col-span-1">
               <div className="flex space-x-4 mb-4">
                 <Link href="#" className="text-gray-400 hover:text-white transition-colors">
                   <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">

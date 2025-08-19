@@ -1,116 +1,109 @@
 "use client"
 
-import type React from "react"
-
-import { useRef } from "react"
-import { motion, useInView } from "framer-motion"
-import { Laptop, ShoppingCart, Code, Smartphone } from "lucide-react"
+import { useState } from "react"
+import Image from "next/image"
 import Link from "next/link"
+import { motion } from "framer-motion"
+import { ArrowRight, Smartphone, ShoppingCart, Globe, Code } from "lucide-react"
 
-interface Service {
-  id: number
-  title: string
-  description: string
-  icon: React.ReactNode
-  delay: number
-  href: string
-}
+const services = [
+  {
+    id: 1,
+    title: "Web Design & Development",
+    description: "Beautiful, responsive websites that convert visitors into customers",
+    image: "/images/service-website.jpg",
+    icon: Globe,
+    href: "/services/web-design",
+    color: "from-blue-500 to-purple-600",
+  },
+  {
+    id: 2,
+    title: "E-commerce Solutions",
+    description: "Powerful online stores that drive sales and grow your business",
+    image: "/images/ecommerce-new.jpg",
+    icon: ShoppingCart,
+    href: "/services/ecommerce",
+    color: "from-green-500 to-teal-600",
+  },
+  {
+    id: 3,
+    title: "Mobile App Development",
+    description: "Native iOS and Android apps that users love to use",
+    image: "/images/service-mobile-new.jpg",
+    icon: Smartphone,
+    href: "/services/mobile-app",
+    color: "from-orange-500 to-red-600",
+  },
+  {
+    id: 4,
+    title: "Web Applications",
+    description: "Custom web applications tailored to your business needs",
+    image: "/images/service-webapp-new.jpg",
+    icon: Code,
+    href: "/services/web-app",
+    color: "from-purple-500 to-pink-600",
+  },
+]
 
 export function ServicesShowcase() {
-  const containerRef = useRef(null)
-  const isInView = useInView(containerRef, { once: true, amount: 0.2 })
-
-  const services: Service[] = [
-    {
-      id: 1,
-      title: "Professional Web Design & Development",
-      description:
-        "We design and develop stunning, responsive websites that captivate your audience and drive conversions. From personal portfolios to corporate sites, we deliver pixel-perfect experiences.",
-      icon: <Laptop className="h-10 w-10" />,
-      delay: 0.1,
-      href: "/services/web-design",
-    },
-    {
-      id: 2,
-      title: "E-commerce Solutions",
-      description:
-        "Transform your business with our custom e-commerce solutions. We build secure, scalable online stores with seamless checkout processes, inventory management, and payment gateway integration.",
-      icon: <ShoppingCart className="h-10 w-10" />,
-      delay: 0.3,
-      href: "/services/ecommerce",
-    },
-    {
-      id: 3,
-      title: "Web Applications",
-      description:
-        "Custom web applications tailored to your specific business needs. We create powerful, scalable solutions that streamline operations, enhance productivity, and deliver exceptional user experiences.",
-      icon: <Code className="h-10 w-10" />,
-      delay: 0.5,
-      href: "/services/web-app",
-    },
-    {
-      id: 4,
-      title: "iOS & Android App Development",
-      description:
-        "Native mobile applications for iOS and Android that provide seamless experiences across all devices. We focus on intuitive interfaces, performance, and functionality that keeps users engaged.",
-      icon: <Smartphone className="h-10 w-10" />,
-      delay: 0.7,
-      href: "/services/mobile-app",
-    },
-  ]
-
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.2,
-        delayChildren: 0.1,
-      },
-    },
-  }
-
-  const itemVariants = {
-    hidden: { opacity: 0, y: 50 },
-    visible: (delay: number) => ({
-      opacity: 1,
-      y: 0,
-      transition: {
-        type: "spring",
-        stiffness: 100,
-        damping: 20,
-        delay,
-      },
-    }),
-  }
+  const [hoveredService, setHoveredService] = useState<number | null>(null)
 
   return (
-    <div ref={containerRef} className="py-16">
-      <motion.div
-        variants={containerVariants}
-        initial="hidden"
-        animate={isInView ? "visible" : "hidden"}
-        className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12"
-      >
-        {services.map((service) => (
+    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6">
+      {services.map((service, index) => {
+        const IconComponent = service.icon
+        return (
           <motion.div
             key={service.id}
-            custom={service.delay}
-            variants={itemVariants}
-            className="bg-white/5 backdrop-blur-sm rounded-xl p-8 hover:bg-white/10 transition-all duration-300 border border-white/10"
+            className="group relative overflow-hidden rounded-xl bg-white/5 backdrop-blur-sm border border-white/10 hover:border-white/20 transition-all duration-300"
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: index * 0.1 }}
+            viewport={{ once: true }}
+            onMouseEnter={() => setHoveredService(service.id)}
+            onMouseLeave={() => setHoveredService(null)}
           >
-            <div className="bg-white/10 rounded-full p-4 inline-block mb-6">{service.icon}</div>
-            <h3 className="text-2xl font-bold mb-4">{service.title}</h3>
-            <p className="text-gray-300 mb-6">{service.description}</p>
-            <Link
-              href={service.href}
-              className="border-2 border-white text-white px-6 py-2 rounded-full hover:bg-white/5 transition-all duration-300 inline-block"
-            >
-              Learn more
-            </Link>
+            <div className="aspect-[4/3] relative overflow-hidden">
+              <Image
+                src={service.image || "/placeholder.svg"}
+                alt={service.title}
+                fill
+                className="object-cover transition-transform duration-300 group-hover:scale-110"
+                sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
+              />
+              <div
+                className={`absolute inset-0 bg-gradient-to-t ${service.color} opacity-60 group-hover:opacity-70 transition-opacity duration-300`}
+              />
+              <div className="absolute top-4 left-4">
+                <div className="bg-white/20 backdrop-blur-sm p-2 rounded-lg">
+                  <IconComponent className="h-5 w-5 text-white" />
+                </div>
+              </div>
+            </div>
+
+            <div className="p-4 md:p-6">
+              <h3 className="text-lg md:text-xl font-bold text-white mb-2 group-hover:text-gray-100 transition-colors">
+                {service.title}
+              </h3>
+              <p className="text-sm md:text-base text-gray-300 mb-4 leading-relaxed line-clamp-2">
+                {service.description}
+              </p>
+
+              <Link
+                href={service.href}
+                className="inline-flex items-center text-sm font-medium text-white hover:text-gray-200 transition-colors group/link"
+              >
+                Learn More
+                <ArrowRight
+                  className={`ml-2 h-4 w-4 transition-transform duration-300 ${
+                    hoveredService === service.id ? "translate-x-1" : ""
+                  }`}
+                />
+              </Link>
+            </div>
           </motion.div>
-        ))}
-      </motion.div>
+        )
+      })}
     </div>
   )
 }
